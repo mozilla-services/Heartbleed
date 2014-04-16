@@ -90,7 +90,7 @@ func cacheCheck(host string) (reply cacheReply, ok bool) {
 	log.Printf("####CACHE_GET: %s %d\n", string(body), len(body))
 	if len(body) < 3 {
 		ok = false
-        return reply, ok
+		return reply, ok
 	}
 
 	if err = json.Unmarshal([]byte(body), &gr); err == nil {
@@ -142,7 +142,7 @@ func handleRequest(tgt *bleed.Target, w http.ResponseWriter, r *http.Request, sk
 	var errS string
 	data := ""
 	if cReply, ok := cacheCheck(tgt.HostIp); ok {
-        log.Printf("creply %+v %s\n", cReply, ok)
+		log.Printf("creply %+v %s\n", cReply, ok)
 		if cReply.LastUpdate < time.Now().UTC().Truncate(EXPRY).Unix() {
 			log.Printf("Refetching " + tgt.HostIp)
 		} else {
@@ -152,7 +152,7 @@ func handleRequest(tgt *bleed.Target, w http.ResponseWriter, r *http.Request, sk
 	}
 
 	if fullCheck {
-        log.Printf("Checking " + tgt.HostIp)
+		log.Printf("Checking " + tgt.HostIp)
 		data, err = bleed.Heartbleed(tgt, PAYLOAD, skip)
 
 		if err == bleed.Safe || err == bleed.Closed {
@@ -191,19 +191,19 @@ func handleRequest(tgt *bleed.Target, w http.ResponseWriter, r *http.Request, sk
 			log.Printf("%v (%v) - SAFE", tgt.HostIp, tgt.Service)
 		case 2:
 			data = ""
-            if err != nil {
-    			errS = err.Error()
-	    		if errS == "Please try again" {
-		    		log.Printf("%v (%v) - MISMATCH", tgt.HostIp, tgt.Service)
-			    } else {
-				    log.Printf("%v (%v) - ERROR [%v]", tgt.HostIp, tgt.Service, errS)
-			    }
-            }
+			if err != nil {
+				errS = err.Error()
+				if errS == "Please try again" {
+					log.Printf("%v (%v) - MISMATCH", tgt.HostIp, tgt.Service)
+				} else {
+					log.Printf("%v (%v) - ERROR [%v]", tgt.HostIp, tgt.Service, errS)
+				}
+			}
 		}
 	}
 
-    // clear the data, because we don't want to expose that.
-    data = ""
+	// clear the data, because we don't want to expose that.
+	data = ""
 
 	res := result{rc, data, errS, tgt.HostIp}
 	j, err := json.Marshal(res)
