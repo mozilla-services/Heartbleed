@@ -8,8 +8,8 @@ import (
 
 	"github.com/docopt/docopt-go"
 
-	bleed "github.com/FiloSottile/Heartbleed/bleed"
-	cache "github.com/FiloSottile/Heartbleed/server/cache"
+	bleed "github.com/mozilla-services/Heartbleed/bleed"
+	cache "github.com/mozilla-services/Heartbleed/server/cache"
 )
 
 var PAYLOAD = []byte("filippo.io/Heartbleed")
