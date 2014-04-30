@@ -49,7 +49,7 @@ func handleRequest(tgt *bleed.Target, w http.ResponseWriter, r *http.Request, sk
 	data := ""
 	if cReply, ok := cacheCheck(tgt.HostIp); ok {
 		log.Printf("creply %+v %s\n", cReply, ok)
-		if cReply.LastUpdate < time.Now().UTC().Truncate(EXPRY).Unix() {
+		if cReply.LastUpdate < time.Now().UTC().Add(-EXPRY).Unix() {
 			log.Printf("Refetching " + tgt.HostIp)
 		} else {
 			rc = int(cReply.Status)
