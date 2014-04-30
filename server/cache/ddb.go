@@ -50,8 +50,12 @@ type CacheReply struct {
 /* Initialize the cache layer.
  * expiration - Go standard duration string, defaults to '10m'
  */
-func Init(expiration string) {
+func Init(expiration, table_name string) {
 	conf_file.Read()
+
+	if table_name != "" {
+		CACHE_TAB = table_name
+	}
 
 	if conf.Vals.Initialized == false {
 		panic("Uninitialized conf.Vals global")
