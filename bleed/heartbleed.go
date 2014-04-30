@@ -12,8 +12,8 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/mozilla-services/Heartbleed/bleed/tls"
 	"github.com/davecgh/go-spew/spew"
-	"github.com/mozilla-services/Heartbleed/tls"
 )
 
 type Target struct {

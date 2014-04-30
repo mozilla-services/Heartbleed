@@ -1,11 +1,8 @@
-//+build skip
-
 package main
 
 import (
 	"flag"
 	"fmt"
-	bleed "github.com/FiloSottile/Heartbleed/bleed"
 	"log"
 	"net/url"
 	"os"
@@ -54,12 +51,14 @@ func main() {
 	if err == bleed.Safe {
 		log.Printf("%v - SAFE", tgt.HostIp)
 		os.Exit(0)
-	} else if err != nil && err.Error() == "Please try again" {
-		log.Printf("%v - TRYAGAIN: %v", tgt.HostIp, err)
-		os.Exit(2)
 	} else if err != nil {
-		log.Printf("%v - ERROR: %v", tgt.HostIp, err)
-		os.Exit(2)
+		if err.Error() == "Please try again" {
+			log.Printf("%v - TRYAGAIN: %v", tgt.HostIp, err)
+			os.Exit(2)
+		} else {
+			log.Printf("%v - ERROR: %v", tgt.HostIp, err)
+			os.Exit(2)
+		}
 	} else {
 		log.Printf("%v\n", out)
 		log.Printf("%v - VULNERABLE", tgt.HostIp)
