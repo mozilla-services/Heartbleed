@@ -1,1 +1,1 @@
-GOPATH=`pwd` GODYNAMO_CONF_FILE=./conf/aws-config.json go run server/bleed_serve_moz.go --redir=localhost --metric.server="" --expiry=10m --cache.name=mozHeartbleed
+./build; GODYNAMO_CONF_FILE=./conf/aws-config.json ./bin/Heartbleed --redir=localhost --metric.server="" --expiry=10m --cache.name=mozHeartbleed
