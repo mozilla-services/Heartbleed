@@ -1,32 +1,19 @@
-Heartbleed
-==========
+The Heartbleed test server. With caching by Mozilla.
 
-A checker (site and tool) for CVE-2014-0160.
-
-Public site at http://filippo.io/Heartbleed/
-
-Tool usage:
+Install the `SAMPLE.aws-config.json` as `~/.aws-config.json` or `/etc/aws-config.json` or in a path specified by the `GODYNAMO_CONF_FILE` env var.
 
 ```
-    Heartbleed [-service="service_name"] example.com[:443]
-    Heartbleed service_name://example.com[:443]
+Usage:
+  HBserver --redir-host=<host> [--listen=<addr:port> --expiry=<duration>]
+  HBserver -h | --help
+  HBserver --version
+
+Options:
+  --redir-host HOST   Redirect requests to "/" to this host.
+  --listen ADDR:PORT  Listen and serve requests to this address:port [default: :8082].
+  --expiry DURATION   ENABLE CACHING. Expire records after this period.
+                      Uses Go's parse syntax
+                      e.g. 10m = 10 minutes, 600s = 600 seconds, 1d = 1 day, etc.
+  -h --help           Show this screen.
+  --version           Show version.
 ```
-
-Exit codes: `0` - SAFE; `1` - VULNERABLE; `2` - ERROR. (*recently changed*)
-
-See the [online FAQ](http://filippo.io/Heartbleed/faq.html) for an explanation of error messages including `TIMEOUT` and `BROKEN PIPE`.
-
-Please note that the code is a bit of a mess, not exactly release-ready.
-
-If a service name is specified besides `https`, the tool checks the specified service using STARTTLS.
-**You do still need to specify the correct port.**
-
-## Install
-
-You will need Go 1.2.x, otherwise you'll get `undefined: cipher.AEAD` and other errors
-
-```
-go get github.com/mozilla-services/Heartbleed
-```
-
-You can also use Docker to get a ready to run virtual machine with Heartbleed: https://github.com/kasimon/docker-heartbleed

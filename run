@@ -1,0 +1,1 @@
+./build; GODYNAMO_CONF_FILE=./conf/aws-config.json ./bin/Heartbleed --redir=localhost --metric.server="" --expiry=10m --cache.name=mozHeartbleed
