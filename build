@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -e
+
+export GOPATH=$PWD
+export GOBIN="${PWD}/bin"
+
+mkdir -p src/github.com/mozilla-services
+mkdir -p bin
+
+ln -snf ../../.. src/github.com/mozilla-services/Heartbleed
+
+go get -d
+go install github.com/mozilla-services/Heartbleed

@@ -1,2 +1,5 @@
 /Heartbleed
 *.swp
+/src
+/bin
+/pkg
