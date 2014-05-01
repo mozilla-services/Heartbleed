@@ -1,3 +1,0 @@
-github.com/cactus/go-statsd-client/statsd
-github.com/docopt/docopt-go
-
